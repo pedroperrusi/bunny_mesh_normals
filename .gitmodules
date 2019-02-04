@@ -1,0 +1,3 @@
+[submodule "libs/cnpy"]
+	path = libs/cnpy
+	url = https://github.com/pedroperrusi/cnpy.git
