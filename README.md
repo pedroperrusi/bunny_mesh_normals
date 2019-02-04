@@ -7,4 +7,5 @@ Ladies and gentlemen, I would like to introduce you the famous [Stanford Bunny](
 Given the mesh data of the Stanford bunny, saved in the numpy format, the challenge is to develop a C++ program that computes:
 
 1 - Normalized normals at each face of the object;
+
 2 - Normalized normals at each vertex of the object.
