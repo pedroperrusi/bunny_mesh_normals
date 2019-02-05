@@ -4,9 +4,14 @@ cmake_minimum_required(VERSION 3.2)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 project(bunny_mesh_normals)
+
 set(EXECUTABLE_OUTPUT_PATH "bin")
+# better intelisense in vscode editor
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package (Eigen3 3.3 REQUIRED)
 
 add_subdirectory(libs/cnpy)
 
 add_executable(example src/example1.cpp)
-target_link_libraries(example cnpy)
+target_link_libraries(example cnpy Eigen3::Eigen)
