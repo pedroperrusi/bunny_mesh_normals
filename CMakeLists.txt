@@ -13,5 +13,5 @@ find_package (Eigen3 3.3 REQUIRED)
 
 add_subdirectory(libs/cnpy)
 
-add_executable(example src/example1.cpp)
+add_executable(example src/main.cc)
 target_link_libraries(example cnpy Eigen3::Eigen)
