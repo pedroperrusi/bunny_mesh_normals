@@ -11,7 +11,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package (Eigen3 3.3 REQUIRED)
 
-add_subdirectory(libs/cnpy)
+include_directories("src/")
+add_executable(main src/main.cc)
+target_link_libraries(main cnpy Eigen3::Eigen)
 
-add_executable(example src/main.cc)
-target_link_libraries(example cnpy Eigen3::Eigen)
+add_subdirectory(libs/cnpy)

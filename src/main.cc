@@ -9,17 +9,27 @@
  */
 int main()
 {
-    // Read Faces Matrix
-    Eigen::MatrixXi faces = bunny_dataIO::readIntNumPyArray("data/bunny_faces.npy");
+    // Loads Bunny data into Eigen matrices 
+    Eigen::MatrixXi faces;      // integer type matrix
+    Eigen::MatrixXd vertices;   // floating point type matrix
+    try
+    {
+        // Read Faces Matrix
+        faces = bunny_dataIO::readIntNumPyArray("data/bunny_faces.npy");
+        // Read vertices matrix
+        vertices = bunny_dataIO::readFloatNumPyArray("data/bunny_vertices.npy");
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return EXIT_FAILURE;
+    }
 
     // print faces matrix
     // Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
     // std::cout << faces.format(OctaveFmt) << std::endl;
     // print faces size
     std::cout << faces.rows() << ' ' << faces.cols() << std::endl;
-
-    // Read vertices matrix
-    Eigen::MatrixXd vertices = bunny_dataIO::readFloatNumPyArray("data/bunny_vertices.npy");
     
     // print vertices matrix
     // Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");

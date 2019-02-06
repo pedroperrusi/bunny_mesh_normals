@@ -6,6 +6,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 namespace bunny_dataIO
 {
@@ -21,12 +22,20 @@ namespace bunny_dataIO
         using ArrayType = Eigen::MatrixXd;
         using MapType = Eigen::Map<ArrayType, Eigen::RowMajor>;
 
+        // load numpy file
         cnpy::NpyArray arr = cnpy::npy_load(filename);
-        size_t rows = arr.shape[0];
-        size_t cols = arr.shape[1];
+        
+        /* check if word size corresponds to double floating point size */
+        if(arr.word_size != sizeof(DataType))
+        {
+            throw std::invalid_argument("Data IO Error: Data type of numpy array is not a Double");
+        }
 
+        // pointer to numpy array data
         DataType *dataPtr = arr.data<DataType>();
 
+        // maps numpy array into an Eigen Matrix
+        size_t rows =  arr.shape[0]; size_t cols = arr.shape[1];
         MapType mapArray(dataPtr, rows, cols);
 
         return mapArray;
@@ -44,12 +53,20 @@ namespace bunny_dataIO
         using ArrayType = Eigen::MatrixXi;
         using MapType = Eigen::Map<ArrayType, Eigen::RowMajor>;
 
+        // load numpy file
         cnpy::NpyArray arr = cnpy::npy_load(filename);
-        size_t rows = arr.shape[0];
-        size_t cols = arr.shape[1];
+        
+        /* check if word size corresponds to double floating point size */
+        if(arr.word_size != sizeof(DataType))
+        {
+            throw std::invalid_argument("Data IO Error: Data type of numpy array is not a integer");
+        }
 
+        // pointer to numpy array data
         DataType *dataPtr = arr.data<DataType>();
 
+        // maps numpy array into an Eigen Matrix
+        size_t rows =  arr.shape[0]; size_t cols = arr.shape[1];
         MapType mapArray(dataPtr, rows, cols);
 
         return mapArray;
