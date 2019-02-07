@@ -25,7 +25,7 @@ using Point3DType = Eigen::Vector3d;
 using IndexMatrixType = Eigen::MatrixX3i;
 
 // Type definition of double floating point matrix a (N, 3) sized double eigen matrix
-using DoubleMatrixType = Eigen::MatrixX3d;
+using Point3DMatrixType = Eigen::MatrixX3d;
 
 /**
  * @brief Triangular mesh following the face-vertex representation.
@@ -51,7 +51,7 @@ class TriangleMesh
      * @param vertices: vector of 3D points in the world space; 
      * @param faces : vector of 3 vertices idexes which composes a triangular face.
      */
-   TriangleMesh(DoubleMatrixType &vertices, IndexMatrixType &faces)
+   TriangleMesh(Point3DMatrixType &vertices, IndexMatrixType &faces)
    {
       this->faces = faces;
       this->vertices = vertices;
@@ -87,21 +87,21 @@ class TriangleMesh
      * 
      * @return vertices private object
      */
-   inline DoubleMatrixType getVertices() { return this->vertices; }
+   inline Point3DMatrixType getVertices() { return this->vertices; }
 
    /**
      * @brief Get the faces normalized normals object
      * 
      * @return face_normals private object
      */
-   inline DoubleMatrixType getFaceNormals() { return this->face_normals; }
+   inline Point3DMatrixType getFaceNormals() { return this->face_normals; }
 
    /**
      * @brief Get the vertices normalized normals object
      * 
      * @return vertices_normals private object
      */
-   inline DoubleMatrixType getVerticeNormals() { return this->vertices_normals; }
+   inline Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
 
  private:
    // Faces is is a matrix of size (num_faces, 3).
@@ -115,13 +115,13 @@ class TriangleMesh
    size_t num_vertices;
 
    // Vertices is a matrix of size (num_vertices, 3) where each row represents a spatial point (x,y,z)
-   DoubleMatrixType vertices;
+   Point3DMatrixType vertices;
 
    // Array of normalized face normals of size (num_faces, 3)
-   DoubleMatrixType face_normals;
+   Point3DMatrixType face_normals;
 
    // Array of normalized vertex normals of size (num_vertices, 3)
-   DoubleMatrixType vertices_normals;
+   Point3DMatrixType vertices_normals;
 };
 } // namespace bunny_mesh
 
