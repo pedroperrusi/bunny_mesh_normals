@@ -45,12 +45,15 @@ int main()
     // Get faces normal
     bunny_mesh::Point3DMatrixType face_normals = bunnyMesh.getFaceNormals();
     // take a look...
-    bunny_dataIO::printArray(face_normals);
+    // bunny_dataIO::printArray(face_normals);
 
     // Get vertices normal
     bunny_mesh::Point3DMatrixType verices_normals = bunnyMesh.getVerticeNormals();
     // take a look...
     bunny_dataIO::printArray(verices_normals);
+
+    bunny_dataIO::saveMatrixToNumpyArray("data/face_normals.npy", face_normals);
+    bunny_dataIO::saveMatrixToNumpyArray("data/vertex_normals.npy", verices_normals);
 
     return 0;
 }
