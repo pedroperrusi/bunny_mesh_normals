@@ -20,7 +20,7 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # add cnpy library subdirectory
-add_subdirectory(libs/cnpy)
+add_subdirectory(extern/cnpy)
 
 # add project source code subdirectory
 add_subdirectory(src)
