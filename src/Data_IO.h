@@ -4,12 +4,33 @@
 #include "cnpy.h"
 
 #include <Eigen/Dense>
+#include <Eigen/Core>
 #include <iostream>
 #include <string>
 #include <stdexcept>
 
 namespace bunny_dataIO
 {
+
+/**
+ * @brief Print an Eigen array for any of Matrix Base derived objects.
+ * 
+ * Matrx format is based on Octave/Matlab.
+ * 
+ * Inspired by : 
+ *      - https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
+ *      - https://eigen.tuxfamily.org/dox/TopicFunctionTakingEigenTypes.html
+ * 
+ * @tparam Derived : template which denotes Eigen::MatrixBase derived objects.
+ * @param array : array, or matrix to be printed out.
+ */
+template <typename Derived>
+inline void printArray(const Eigen::MatrixBase<Derived>& array)
+{
+    Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
+    std::cout << array.format(OctaveFmt) << std::endl;
+}
+
 /**
      * @brief Reads a floating number numpy array written on a file.
      * 

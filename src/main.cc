@@ -28,5 +28,9 @@ int main()
 
     bunny_mesh::TriangleMesh bunnyMesh(vertices, faces);
 
+    Eigen::MatrixXd face_normals = bunnyMesh.getFaceNormals();
+
+    bunny_dataIO::printArray(face_normals);
+
     return 0;
 }

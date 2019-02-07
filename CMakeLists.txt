@@ -12,7 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package (Eigen3 3.3 REQUIRED)
 
 include_directories("src/")
-add_executable(main src/main.cc)
+add_executable(main src/main.cc src/Mesh.cc)
 target_link_libraries(main cnpy Eigen3::Eigen)
 
 add_subdirectory(libs/cnpy)
