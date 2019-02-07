@@ -6,5 +6,4 @@ echo 'Building Bunny Mesh Project...'
 mkdir -p build 
 cd build
 cmake ../ 
-make
-make install
+cmake --build .
