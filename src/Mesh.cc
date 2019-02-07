@@ -1,3 +1,13 @@
+/**
+ * @file Mesh.cc
+ * @author Pedro Henrique S. Perrusi (pedro.perrusi@gmail.com)
+ * @brief Source file of Mesh.h header file.
+ * @version 1.0
+ * @date 2019-02-07
+ * 
+ * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
+ * 
+ */
 #include "Mesh.h"
 
 #include <iostream>

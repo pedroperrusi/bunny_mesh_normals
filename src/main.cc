@@ -1,3 +1,13 @@
+/**
+ * @file main.cc
+ * @author Pedro Henrique S. Perrusi (pedro.perrusi@gmail.com)
+ * @brief Main file for Bunny Mesh Normals project.
+ * @version 1.0
+ * @date 2019-02-07
+ * 
+ * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
+ * 
+ */
 #include "data_io.h"
 #include "Mesh.h"
 

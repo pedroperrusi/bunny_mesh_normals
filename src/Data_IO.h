@@ -1,3 +1,13 @@
+/**
+ * @file data_io.h
+ * @author Pedro Henrique S. Perrusi (pedro.perrusi@gmail.com)
+ * @brief Input and output operations used in Bunny Mesh Normals project
+ * @version 1.0
+ * @date 2019-02-07
+ * 
+ * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
+ * 
+ */
 #ifndef _BUNNY_DATA_IO_
 #define _BUNNY_DATA_IO_
 

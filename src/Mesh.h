@@ -1,3 +1,13 @@
+/**
+ * @file Mesh.h
+ * @author Pedro Henrique S. Perrusi (pedro.perrusi@gmail.com)
+ * @brief Definition of Mesh classes and Methods related to Bunny Mesh Normals project.
+ * @version 1.0
+ * @date 2019-02-07
+ * 
+ * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
+ * 
+ */
 #ifndef _BUNNY_MESH_
 #define _BUNNY_MESH_
 
