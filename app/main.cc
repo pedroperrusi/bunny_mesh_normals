@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
  * 
  */
-#include "data_io.h"
-#include "Mesh.h"
+#include "bunny_mesh/data_io.h"
+#include "bunny_mesh/Mesh.h"
 
 #include <Eigen/Dense>
 #include <iostream>

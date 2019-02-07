@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
  * 
  */
-#include "Mesh.h"
+#include "bunny_mesh/Mesh.h"
 
 #include <iostream>
 

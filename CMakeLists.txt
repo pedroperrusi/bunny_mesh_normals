@@ -22,5 +22,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # add cnpy library subdirectory
 add_subdirectory(extern/cnpy)
 
-# add project source code subdirectory
+# add library source code subdirectory
 add_subdirectory(src)
+
+# add project source code subdirectory
+add_subdirectory(app)
