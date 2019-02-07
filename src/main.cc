@@ -26,11 +26,21 @@ int main()
         return EXIT_FAILURE;
     }
 
+    // Create a bunny mesh object based on vertices and faces information
     bunny_mesh::TriangleMesh bunnyMesh(vertices, faces);
 
-    Eigen::MatrixXd face_normals = bunnyMesh.getFaceNormals();
+    // Compute normalized face normals and normalized vertices normals
+    bunnyMesh.ComputeNormals();
 
+    // Get faces normal
+    Eigen::MatrixXd face_normals = bunnyMesh.getFaceNormals();
+    // take a look...
     bunny_dataIO::printArray(face_normals);
+
+    // Get vertices normal
+    Eigen::MatrixXd verices_normals = bunnyMesh.getVerticeNormals();
+    // take a look...
+    bunny_dataIO::printArray(verices_normals);
 
     return 0;
 }
