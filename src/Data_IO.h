@@ -25,7 +25,7 @@ namespace bunny_dataIO
  * @param array : array, or matrix to be printed out.
  */
 template <typename Derived>
-inline void printArray(const Eigen::MatrixBase<Derived>& array)
+inline void printArray(const Eigen::MatrixBase<Derived> &array)
 {
     Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
     std::cout << array.format(OctaveFmt) << std::endl;
