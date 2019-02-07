@@ -1,4 +1,5 @@
-#include "Data_IO.h"
+#include "data_io.h"
+#include "Mesh.h"
 
 #include <Eigen/Dense>
 #include <iostream>
@@ -9,9 +10,9 @@
  */
 int main()
 {
-    // Loads Bunny data into Eigen matrices 
-    Eigen::MatrixXi faces;      // integer type matrix
-    Eigen::MatrixXd vertices;   // floating point type matrix
+    // Loads Bunny data into Eigen matrices
+    Eigen::MatrixXi faces;    // integer type matrix
+    Eigen::MatrixXd vertices; // floating point type matrix
     try
     {
         // Read Faces Matrix
@@ -19,23 +20,13 @@ int main()
         // Read vertices matrix
         vertices = bunny_dataIO::readFloatNumPyArray("data/bunny_vertices.npy");
     }
-    catch(const std::exception& e)
+    catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
         return EXIT_FAILURE;
     }
 
-    // print faces matrix
-    // Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
-    // std::cout << faces.format(OctaveFmt) << std::endl;
-    // print faces size
-    std::cout << faces.rows() << ' ' << faces.cols() << std::endl;
-    
-    // print vertices matrix
-    // Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision, 0, ", ", ";\n", "", "", "[", "]");
-    // std::cout << vertices.format(OctaveFmt) << std::endl;
-    // print vertices size
-    std::cout << vertices.rows() << ' ' << vertices.cols() << std::endl;
+    bunny_mesh::TriangleMesh bunnyMesh(vertices, faces);
 
     return 0;
 }
