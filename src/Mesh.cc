@@ -27,12 +27,17 @@ void TriangleMesh::ComputeFaceNormals()
         Eigen::Vector3d v1 = this->vertices.row(verticesIdx(1));
         Eigen::Vector3d v2 = this->vertices.row(verticesIdx(2));
         // compute the normalized cross product
-        this->face_normals.row(i) = ((v1 - v0).cross(v2 - v1)).normalized();
+        Eigen::Vector3d normF = (v1 - v0).cross(v2 - v1);
+        // normalization
+        normF.normalize();
+        // assign to face_normal object
+        this->face_normals.row(i) = normF;
     }
+    return;
 }
 
 // void TriangleMesh::ComputeVerticeNormals()
 // {
-
+    
 // }
 } // namespace bunny_mesh
