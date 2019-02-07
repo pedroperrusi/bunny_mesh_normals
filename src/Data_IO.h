@@ -50,7 +50,7 @@ inline void printArray(const Eigen::MatrixBase<Derived> &array)
 inline Eigen::MatrixXd readFloatNumPyArray(std::string filename)
 {
     using DataType = double;
-    using ArrayType = Eigen::MatrixXd;
+    using ArrayType = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
     using MapType = Eigen::Map<ArrayType, Eigen::RowMajor>;
 
     // load numpy file
@@ -82,8 +82,8 @@ inline Eigen::MatrixXd readFloatNumPyArray(std::string filename)
 inline Eigen::MatrixXi readIntNumPyArray(std::string filename)
 {
     using DataType = int;
-    using ArrayType = Eigen::MatrixXi;
-    using MapType = Eigen::Map<ArrayType, Eigen::RowMajor>;
+    using ArrayType = Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
+    using MapType = Eigen::Map<ArrayType>;
 
     // load numpy file
     cnpy::NpyArray array = cnpy::npy_load(filename);
@@ -105,19 +105,43 @@ inline Eigen::MatrixXi readIntNumPyArray(std::string filename)
     return mapArray;
 }
 
+/**
+ * @brief Save Eigen Matrix as a numpy array file.
+ * 
+ * Up to this date, CNPY library does not support writting collumn major arrays (fortran_order).
+ * As a reference, you can see this thread on CNPY issue [#20](https://github.com/rogersce/cnpy/issues/20).
+ * 
+ * So some attention is necessary to assure the compatibility between the Eigen Arrays, usually collumn major and the numpy writiing to file
+ * 
+ * @param filename 
+ * @param eigenMatrice 
+ */
 inline void saveMatrixToNumpyArray(std::string filename, Eigen::MatrixX3d &eigenMatrice)
 {
-    // We need to be sure the Matrix is Written as RowMajor.
-    // cnpy does not support ColMajor matrices until this date.
-    using MapType = Eigen::Map<Eigen::MatrixX3d, Eigen::RowMajor>;
     size_t rows = eigenMatrice.rows();
     size_t cols = eigenMatrice.cols();
-    // Allocate space for a row major copy of the matrix
-    double *dataPtr = new double[rows*cols];
-
-    MapType(dataPtr, rows, cols) = eigenMatrice;
-
-    cnpy::npy_save(filename, dataPtr, {rows, cols}, "w");
+    
+    // We need to assure the Matrix is Written as RowMajor.
+    // cnpy does not support ColMajor matrices until this date.
+    if(eigenMatrice.IsRowMajor)
+    {
+        // if matrix is a row major, we can just write it as a numpy file
+        cnpy::npy_save(filename, eigenMatrice.data(), {rows, cols}, "w");
+    }
+    else
+    {
+        // Prepare mapping conversion to a row major matrix
+        using RowMajorArray = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
+        using MapType = Eigen::Map<RowMajorArray>;
+        // Allocate space for a row major copy of the matrix
+        double *dataPtr = new double[rows*cols];
+        // Perform memory conversion
+        MapType(dataPtr, rows, cols) = eigenMatrice;
+        // Save it to numpy file
+        cnpy::npy_save(filename, dataPtr, {rows, cols}, "w");
+        // free up memory space
+        delete[] dataPtr;
+    }
 }
 
 } // namespace bunny_dataIO

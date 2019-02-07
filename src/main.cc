@@ -36,6 +36,11 @@ int main()
         return EXIT_FAILURE;
     }
 
+    // take a look...
+    // bunny_dataIO::printArray(faces);
+    // bunny_dataIO::printArray(vertices);
+
+
     // Create a bunny mesh object based on vertices and faces information
     bunny_mesh::TriangleMesh bunnyMesh(vertices, faces);
 
@@ -50,8 +55,9 @@ int main()
     // Get vertices normal
     bunny_mesh::Point3DMatrixType verices_normals = bunnyMesh.getVerticeNormals();
     // take a look...
-    bunny_dataIO::printArray(verices_normals);
+    // bunny_dataIO::printArray(verices_normals);
 
+    // Save matrices as numpy arrays
     bunny_dataIO::saveMatrixToNumpyArray("data/face_normals.npy", face_normals);
     bunny_dataIO::saveMatrixToNumpyArray("data/vertex_normals.npy", verices_normals);
 
