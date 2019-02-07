@@ -18,39 +18,33 @@ namespace bunny_mesh
      */
 void TriangleMesh::ComputeNormals()
 {
-    // Allocates dynamic size for face_normals matrix
-    this->face_normals.resize(this->num_faces, 3);
-
-    // Allocates dynamic size for face_normals matrix
-    this->vertices_normals.resize(this->num_vertices, 3);
-
     // iterates through each row of the faces matrix
-    for (size_t i = 0; i < this->num_faces; i++)
+    for (size_t i = 0; i < num_faces; i++)
     {
-        // acquire vertex indexes information from faces
-        Eigen::Vector3i verticesIdx = this->faces.row(i);
+        // acquire vertex indexes information from faces ith row
+        Index3DType vertices_idx = faces.row(i);
 
         // get vertices coordinates from vertices
-        Eigen::Vector3d v0 = this->vertices.row(verticesIdx(0));
-        Eigen::Vector3d v1 = this->vertices.row(verticesIdx(1));
-        Eigen::Vector3d v2 = this->vertices.row(verticesIdx(2));
+        Point3DType v0 = vertices.row(vertices_idx(0));
+        Point3DType v1 = vertices.row(vertices_idx(1));
+        Point3DType v2 = vertices.row(vertices_idx(2));
 
         // compute the cross product (unnormalized face normal)
-        Eigen::Vector3d faceNormal = (v1 - v0).cross(v2 - v1);
+        Point3DType faceNormal = (v1 - v0).cross(v2 - v1);
 
-        // add this value to vertex normal matrice
-        this->vertices_normals.row(verticesIdx(0)) += faceNormal;
-        this->vertices_normals.row(verticesIdx(1)) += faceNormal;
-        this->vertices_normals.row(verticesIdx(2)) += faceNormal;
+        // add this array to vertex normals matrice at given vertices indexes
+        vertices_normals.row(vertices_idx(0)) += faceNormal;
+        vertices_normals.row(vertices_idx(1)) += faceNormal;
+        vertices_normals.row(vertices_idx(2)) += faceNormal;
 
         // normalization of faces vector
         faceNormal.normalize();
 
         // assign to face_normal matrix, on the given row
-        this->face_normals.row(i) = faceNormal;
+        face_normals.row(i) = faceNormal;
     }
     // lastly, normalize each row (vertice) of vertices_normals matrix
-    this->vertices_normals.rowwise().normalize();
+    vertices_normals.rowwise().normalize();
     return;
 }
 
