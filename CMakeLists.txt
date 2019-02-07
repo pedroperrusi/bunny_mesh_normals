@@ -27,3 +27,14 @@ add_subdirectory(src)
 
 # add project source code subdirectory
 add_subdirectory(app)
+
+# download and enable google testing
+include(cmake/googletest.cmake)
+fetch_googletest(
+    ${PROJECT_SOURCE_DIR}/cmake
+    ${PROJECT_BINARY_DIR}/googletest
+    )
+
+enable_testing()
+# add project tests subdirectory
+add_subdirectory(test)
