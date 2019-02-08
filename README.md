@@ -3,6 +3,11 @@
 
 Ladies and gentlemen, I would like to introduce you the famous [Stanford Bunny][wiki_bunny] Triangle Mesh. If you would like to get to know him better, Georgia Tech provides an [overview][bunny_story] of his history and Stanford shares [his data source][Stanford_Source] and many other 3D models.
 
+<!-- References -->
+[wiki_bunny]: https://en.wikipedia.org/wiki/Stanford_bunny
+[bunny_story]: https://www.cc.gatech.edu/~turk/bunny/bunny.html
+[Stanford_Source]: http://graphics.stanford.edu/data/3Dscanrep/
+
 ## The Challenge
 
 Given the mesh data of the Stanford bunny, saved in the numpy format, the challenge is to develop a C++ program that computes:
@@ -11,7 +16,7 @@ Given the mesh data of the Stanford bunny, saved in the numpy format, the challe
 
 2 - Normalized normals at each vertex of the object.
 
-## Dependencies
+### Dependencies
 
 * [ZLIB](https://www.zlib.net)
 
@@ -19,17 +24,15 @@ Given the mesh data of the Stanford bunny, saved in the numpy format, the challe
 
 * [CMake](https://cmake.org)
 
-## External Libraries
+### External Libraries
 
 * CNPY: IO operations between numpy files and C/C++ data structures.
 
 * Google Tests (Gtest): Basic testing functionalities. The CMake and Gtest integration was based on the [gtest-demo](https://github.com/bast/gtest-demo) repository.
 
-## Usage
+### Usage
 
 In order to perform the basic interface with the bunny-mesh project, you may use the helping bash scripts of the folder [scripts](scripts/). Their names are mostly self explanatory.
-
-* 1: Generate CMake
 
 In order to generate the CMake files:
 
@@ -37,17 +40,13 @@ In order to generate the CMake files:
 bash scripts/cmake.sh
 ```
 
-* 2: Build and Compile
-
 In order to build and compile:
 
 ```(bash)
 bash scripts/build.sh
 ```
 
-* 3: Run Project
-
-Finaly:
+Finally you may run the project:
 
 ```(bash)
 bash scripts/run_bunny_mesh_normals.sh
@@ -67,7 +66,10 @@ To run unit tests:
 bash scripts/run_tests.sh
 ```
 
-<!-- References -->
-[wiki_bunny]: https://en.wikipedia.org/wiki/Stanford_bunny
-[bunny_story]: https://www.cc.gatech.edu/~turk/bunny/bunny.html
-[Stanford_Source]: http://graphics.stanford.edu/data/3Dscanrep/
+## References
+
+Information sources that were quite useful to understand and perform the triagular mesh operations:
+
+* https://en.wikipedia.org/wiki/Polygon_mesh
+* https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals
+* http://www.iquilezles.org/www/articles/normals/normals.htm
