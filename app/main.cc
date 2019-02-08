@@ -11,24 +11,49 @@
 #include "bunny_mesh/data_io.h"
 #include "bunny_mesh/Mesh.h"
 
-#include <Eigen/Dense>
 #include <iostream>
 #include <string>
+
+// Input faces file path
+const std::string facesFilePath = "data/bunny_faces.npy";
+// Input vertices file path
+const std::string verticesFilePath = "data/bunny_vertices.npy";
+// Output normalized face normals file path
+const std::string normFacesFilePath = "data/face_normals.npy";
+// Output normalized vertices normals file path
+const std::string normVerticesFilePath = "data/vertex_normals.npy";
+
+/**
+ * @brief Brief introduction to Bunny Mesh Normals executable file.
+ */
+void help()
+{
+    std::cout 
+    << "This program computes the normalized face normals and normalized vertices normals from a given model.\n"
+    << "The application inputs are:\n"
+    << "\t - '" << facesFilePath      << "'\n"
+    << "\t - '" << verticesFilePath   << "'\n"
+    << "Output files are written to:\n"
+    << "\t - '" << normFacesFilePath     << "'\n"
+    << "\t - '" << normVerticesFilePath  << "'\n"
+    << std::endl;
+}
 
 /**
  * @brief Main function of bunny_mesh_normals project
  */
 int main()
 {
+    help();
     // Loads Bunny data into Eigen matrices
     bunny_mesh::IndexMatrixType faces;    // integer type matrix
     bunny_mesh::Point3DMatrixType vertices; // floating point type matrix
     try
     {
         // Read Faces Matrix
-        faces = bunny_dataIO::readIntNumPyArray("data/bunny_faces.npy");
+        faces = bunny_dataIO::readIntNumPyArray(facesFilePath);
         // Read vertices matrix
-        vertices = bunny_dataIO::readFloatNumPyArray("data/bunny_vertices.npy");
+        vertices = bunny_dataIO::readFloatNumPyArray(verticesFilePath);
     }
     catch (const std::exception &e)
     {
@@ -58,8 +83,10 @@ int main()
     // bunny_dataIO::printArray(verices_normals);
 
     // Save matrices as numpy arrays
-    bunny_dataIO::saveMatrixToNumpyArray("data/face_normals.npy", face_normals);
-    bunny_dataIO::saveMatrixToNumpyArray("data/vertex_normals.npy", verices_normals);
+    bunny_dataIO::saveMatrixToNumpyArray(normFacesFilePath, face_normals);
+    bunny_dataIO::saveMatrixToNumpyArray(normVerticesFilePath, verices_normals);
 
-    return 0;
+    std::cout << "Normalized normals matrices written with success." << std::endl;
+
+    return EXIT_SUCCESS;
 }
