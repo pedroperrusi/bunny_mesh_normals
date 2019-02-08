@@ -3,4 +3,4 @@
 echo 'Compiling Bunny Mesh Project...'
 
 cd build
-make
+cmake --build .

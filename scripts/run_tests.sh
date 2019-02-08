@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo 'Runnin Bunny Mesh Tests...'
+echo 'Running Bunny Mesh Tests...'
 
 ./build/bin/bunny_tests
