@@ -34,84 +34,112 @@ namespace bunny_mesh
  */
 class TriangleMesh
 {
- public:
-   /**
+public:
+  /**
      * @brief Construct a new Triangle Mesh object.
      * 
      * @param vertices: vector of 3D points in the world space; 
      * @param faces : vector of 3 vertices idexes which composes a triangular face.
      */
-   TriangleMesh(bunny_dataIO::Point3DMatrixType &vertices, bunny_dataIO::IndexMatrixType &faces)
-   {
-      this->faces = faces;
-      this->vertices = vertices;
-      this->num_faces = this->faces.rows();
-      this->num_vertices = this->vertices.rows();
-      // Allocates dynamic size for face_normals matrix
-      this->face_normals.resize(num_faces, 3);
-      // Allocates dynamic size for face_normals matrix
-      this->vertices_normals.resize(num_vertices, 3);
-   };
+  TriangleMesh(const bunny_dataIO::Point3DMatrixType &vertices, const bunny_dataIO::IndexMatrixType &faces)
+  {
+    setFaces(faces);
+    setVertices(vertices);
+    this->num_faces = this->faces.rows();
+    this->num_vertices = this->vertices.rows();
+    // Allocates dynamic size for face_normals matrix
+    this->face_normals.resize(num_faces, 3);
+    // Allocates dynamic size for face_normals matrix
+    this->vertices_normals.resize(num_vertices, 3);
+    // Sets default orientation
+    setOrientation(orientationDefault);
+  };
 
-   /**
+  /**
      * @brief Destructor of Triangle Mesh object
      */
-   ~TriangleMesh(){
+  ~TriangleMesh(){
 
-   };
+  };
 
-   /**
+  /**
      * @brief Given the faces and vertices arrays, compute the normalized normal matrix to each face and vertice.
      */
-   void ComputeNormals();
+  void ComputeNormals();
 
-   /**
+  /**
      * @brief Get the Faces object
      * 
      * @return faces private object 
      */
-   inline bunny_dataIO::IndexMatrixType getFaces() { return this->faces; }
+  inline bunny_dataIO::IndexMatrixType getFaces() { return this->faces; }
 
-   /**
+  /**
+     * @brief Set the Faces object 
+     */
+  inline void setFaces(const bunny_dataIO::IndexMatrixType &faces) { this->faces = faces; }
+
+  /**
      * @brief Get the Vertices object
      * 
      * @return vertices private object
      */
-   inline bunny_dataIO::Point3DMatrixType getVertices() { return this->vertices; }
+  inline bunny_dataIO::Point3DMatrixType getVertices() { return this->vertices; }
 
-   /**
+  /**
+     * @brief Set the Vertices object 
+     */
+  inline void setVertices(const bunny_dataIO::Point3DMatrixType &vertices) { this->vertices = vertices; }
+
+  /**
+     * @brief Get the Vertices object
+     * 
+     * @return vertices private object
+     */
+  inline bunny_dataIO::Point3DType getOrientation(){ return this->orientation; };
+
+  /**
+     * @brief Set the Vertices object 
+     */
+  inline void setOrientation(const bunny_dataIO::Point3DType &orientation) { this->orientation = orientation; }
+
+  /**
      * @brief Get the faces normalized normals object
      * 
      * @return face_normals private object
      */
-   inline bunny_dataIO::Point3DMatrixType getFaceNormals() { return this->face_normals; }
+  inline bunny_dataIO::Point3DMatrixType getFaceNormals() { return this->face_normals; }
 
-   /**
+  /**
      * @brief Get the vertices normalized normals object
      * 
      * @return vertices_normals private object
      */
-   inline bunny_dataIO::Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
+  inline bunny_dataIO::Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
 
- private:
-   // Faces is is a matrix of size (num_faces, 3).
-   // Each of its elements denotes a row index to the vertices matrix
-   bunny_dataIO::IndexMatrixType faces;
+private:
+  // Faces is is a matrix of size (num_faces, 3).
+  // Each of its elements denotes a row index to the vertices matrix
+  bunny_dataIO::IndexMatrixType faces;
 
-   // Number of faces
-   size_t num_faces;
+  // Number of faces
+  size_t num_faces;
 
-   // Number of vertices
-   size_t num_vertices;
+  // Number of vertices
+  size_t num_vertices;
 
-   // Vertices is a matrix of size (num_vertices, 3) where each row represents a spatial point (x,y,z)
-   bunny_dataIO::Point3DMatrixType vertices;
+  // orientation is a 3D array which gives the object orientation. Default value is (x,y,z) = (0,0,1)
+  bunny_dataIO::Point3DType orientation;
+  const bunny_dataIO::Point3DType orientationDefault = bunny_dataIO::Point3DType(0, 0, 1);
 
-   // Array of normalized face normals of size (num_faces, 3)
-   bunny_dataIO::Point3DMatrixType face_normals;
+  // Vertices is a matrix of size (num_vertices, 3) where each row represents a spatial point (x,y,z)
+  bunny_dataIO::Point3DMatrixType vertices;
 
-   // Array of normalized vertex normals of size (num_vertices, 3)
-   bunny_dataIO::Point3DMatrixType vertices_normals;
+  // Array of normalized face normals of size (num_faces, 3)
+  bunny_dataIO::Point3DMatrixType face_normals;
+
+  // Array of normalized vertex normals of size (num_vertices, 3)
+  bunny_dataIO::Point3DMatrixType vertices_normals;
 };
 } // namespace bunny_mesh
 
