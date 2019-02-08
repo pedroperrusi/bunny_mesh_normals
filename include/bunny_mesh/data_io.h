@@ -22,6 +22,18 @@
 namespace bunny_dataIO
 {
 
+// Type definition of indexes array as a 3 element integer eigen vector
+using Index3DType = Eigen::Matrix<int, 1, 3, Eigen::RowMajor>;
+
+// Type definition of indexes array as a 3 element integer eigen vector
+using Point3DType = Eigen::Matrix<double, 1, 3, Eigen::RowMajor>;
+
+// Type definition of indexes matrix as a (N, 3) sized integer eigen matrix
+using IndexMatrixType = Eigen::Matrix<int, Eigen::Dynamic, 3, Eigen::RowMajor>;
+
+// Type definition of double floating point matrix a (N, 3) sized double eigen matrix
+using Point3DMatrixType = Eigen::Matrix<double, Eigen::Dynamic, 3, Eigen::RowMajor>;
+
 /**
  * @brief Print an Eigen array for any of Matrix Base derived objects.
  * 
@@ -52,7 +64,7 @@ inline void printArray(const Eigen::MatrixBase<Derived> &array)
  * @param filename 
  * @param eigenMatrice 
  */
-inline void saveIntMatrixToNumpyArray(std::string filename, Eigen::MatrixX3i &eigenMatrice)
+inline void saveIntMatrixToNumpyArray(std::string filename, IndexMatrixType &eigenMatrice)
 {
     size_t rows = eigenMatrice.rows();
     size_t cols = eigenMatrice.cols();
@@ -66,8 +78,7 @@ inline void saveIntMatrixToNumpyArray(std::string filename, Eigen::MatrixX3i &ei
     else
     {
         // Prepare mapping conversion to a row major matrix
-        using RowMajorArray = Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
-        using MapType = Eigen::Map<RowMajorArray>;
+        using MapType = Eigen::Map<IndexMatrixType>;
         // Allocate space for a row major copy of the matrix
         int *dataPtr = new int[rows * cols];
         // Perform memory conversion
@@ -90,7 +101,7 @@ inline void saveIntMatrixToNumpyArray(std::string filename, Eigen::MatrixX3i &ei
  * @param filename 
  * @param eigenMatrice 
  */
-inline void saveMatrixToNumpyArray(std::string filename, Eigen::MatrixX3d &eigenMatrice)
+inline void saveMatrixToNumpyArray(std::string filename, Point3DMatrixType &eigenMatrice)
 {
     size_t rows = eigenMatrice.rows();
     size_t cols = eigenMatrice.cols();
@@ -104,8 +115,7 @@ inline void saveMatrixToNumpyArray(std::string filename, Eigen::MatrixX3d &eigen
     else
     {
         // Prepare mapping conversion to a row major matrix
-        using RowMajorArray = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
-        using MapType = Eigen::Map<RowMajorArray>;
+        using MapType = Eigen::Map<Point3DMatrixType>;
         // Allocate space for a row major copy of the matrix
         double *dataPtr = new double[rows * cols];
         // Perform memory conversion
@@ -128,12 +138,11 @@ inline void saveMatrixToNumpyArray(std::string filename, Eigen::MatrixX3d &eigen
 * @param filename : path to the numpy file. Usual extension: '.npy'
 * @return Eigen::MatrixXd : an eigen matrix composed by the file data.
 */
-inline Eigen::MatrixXd readFloatNumPyArray(std::string filename)
+inline Point3DMatrixType readFloatNumPyArray(std::string filename)
 {
     // Floating point numpy array type definitions
     using DataType = double;
-    using ArrayType = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
-    using MapType = Eigen::Map<ArrayType, Eigen::RowMajor>;
+    using MapType = Eigen::Map<Point3DMatrixType>;
 
     // load numpy file
     cnpy::NpyArray array = cnpy::npy_load(filename);
@@ -161,12 +170,11 @@ inline Eigen::MatrixXd readFloatNumPyArray(std::string filename)
 * @param filename : path to the numpy file. Usual extension: '.npy'
 * @return Eigen::MatrixXi : an eigen matrix composed by the file data.
 */
-inline Eigen::MatrixXi readIntNumPyArray(std::string filename)
+inline IndexMatrixType readIntNumPyArray(std::string filename)
 {
     // Integer numpy array type definitions
     using DataType = int;
-    using ArrayType = Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
-    using MapType = Eigen::Map<ArrayType>;
+    using MapType = Eigen::Map<IndexMatrixType>;
 
     // load numpy file
     cnpy::NpyArray array = cnpy::npy_load(filename);

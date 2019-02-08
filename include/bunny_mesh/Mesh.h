@@ -16,16 +16,16 @@
 namespace bunny_mesh
 {
 // Type definition of indexes array as a 3 element integer eigen vector
-using Index3DType = Eigen::Vector3i;
+using Index3DType = Eigen::Matrix<int, 1, 3, Eigen::RowMajor>;
 
 // Type definition of indexes array as a 3 element integer eigen vector
-using Point3DType = Eigen::Vector3d;
+using Point3DType = Eigen::Matrix<double, 1, 3, Eigen::RowMajor>;
 
 // Type definition of indexes matrix as a (N, 3) sized integer eigen matrix
-using IndexMatrixType = Eigen::MatrixX3i;
+using IndexMatrixType = Eigen::Matrix<int, Eigen::Dynamic, 3, Eigen::RowMajor>;
 
 // Type definition of double floating point matrix a (N, 3) sized double eigen matrix
-using Point3DMatrixType = Eigen::MatrixX3d;
+using Point3DMatrixType = Eigen::Matrix<double, Eigen::Dynamic, 3, Eigen::RowMajor>;
 
 /**
  * @brief Triangular mesh following the face-vertex representation.
