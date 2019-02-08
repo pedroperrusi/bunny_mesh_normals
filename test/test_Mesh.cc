@@ -28,8 +28,8 @@ TEST(Mesh, SingleFaceNormal)
 
     Point3DMatrixType expectedVerticeNormals(3,3);
     expectedVerticeNormals << 0.0, 0.0, 1.0,
-                           0.0, 0.0, 1.0,
-                           0.0, 0.0, 1.0;
+                              0.0, 0.0, 1.0,
+                              0.0, 0.0, 1.0;
 
     // test them...
     ASSERT_TRUE(expectedFaceNormals.isApprox(singleFaceMesh.getFaceNormals()));
