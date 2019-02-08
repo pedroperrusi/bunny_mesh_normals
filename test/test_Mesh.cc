@@ -34,6 +34,10 @@ TEST(Mesh, SingleFaceNormal)
                               0.0, 0.0, 1.0;
 
     // test them...
+    // size assertions:
+    ASSERT_EQ(faces.rows(), singleFaceMesh.getFaceNormals().rows());
+    ASSERT_EQ(vertices.rows(), singleFaceMesh.getVerticeNormals().rows());
+    // norm assertions:
     ASSERT_TRUE(expectedFaceNormals.isApprox(singleFaceMesh.getFaceNormals()));
     ASSERT_TRUE(expectedVerticeNormals.isApprox(singleFaceMesh.getVerticeNormals()));
 }
