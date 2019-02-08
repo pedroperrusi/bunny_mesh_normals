@@ -42,6 +42,44 @@ inline void printArray(const Eigen::MatrixBase<Derived> &array)
 }
 
 /**
+ * @brief Save Eigen Integer Matrix as a numpy array file.
+ * 
+ * Up to this date, CNPY library does not support writting collumn major arrays (fortran_order).
+ * As a reference, you can see this thread on CNPY issue [#20](https://github.com/rogersce/cnpy/issues/20).
+ * 
+ * So some attention is necessary to assure the compatibility between the Eigen Arrays, usually collumn major, and the numpy file.
+ * 
+ * @param filename 
+ * @param eigenMatrice 
+ */
+inline void saveIntMatrixToNumpyArray(std::string filename, Eigen::MatrixX3i &eigenMatrice)
+{
+    size_t rows = eigenMatrice.rows();
+    size_t cols = eigenMatrice.cols();
+    // We need to assure the Matrix is Written as RowMajor.
+    // cnpy does not support ColMajor matrices until this date.
+    if (eigenMatrice.IsRowMajor)
+    {
+        // if matrix is a row major, we can just write it as a numpy file
+        cnpy::npy_save(filename, eigenMatrice.data(), {rows, cols}, "w");
+    }
+    else
+    {
+        // Prepare mapping conversion to a row major matrix
+        using RowMajorArray = Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
+        using MapType = Eigen::Map<RowMajorArray>;
+        // Allocate space for a row major copy of the matrix
+        int *dataPtr = new int[rows * cols];
+        // Perform memory conversion
+        MapType(dataPtr, rows, cols) = eigenMatrice;
+        // Save it to numpy file
+        cnpy::npy_save(filename, dataPtr, {rows, cols}, "w");
+        // free up memory space
+        delete[] dataPtr;
+    }
+}
+
+/**
  * @brief Save Eigen Matrix as a numpy array file.
  * 
  * Up to this date, CNPY library does not support writting collumn major arrays (fortran_order).
