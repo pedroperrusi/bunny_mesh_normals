@@ -29,20 +29,20 @@ Given the mesh data of the Stanford bunny, saved in the numpy format, the challe
 
 In order to perform the basic interface with the bunny-mesh project, you may use the helping bash scripts of the folder [scripts](scripts/). Their names are mostly self explanatory.
 
-* 1: Build
+* 1: Generate CMake
 
-In order to build the CMake project:
+In order to generate the CMake files:
+
+```(bash)
+bash scripts/cmake.sh
+```
+
+* 2: Build and Compile
+
+In order to build and compile:
 
 ```(bash)
 bash scripts/build.sh
-```
-
-* 2: Compile
-
-Just after building:
-
-```(bash)
-bash scripts/compile.sh
 ```
 
 * 3: Run Project
