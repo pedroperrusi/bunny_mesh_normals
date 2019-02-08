@@ -32,7 +32,7 @@ add_subdirectory(app)
 include(cmake/googletest.cmake)
 fetch_googletest(
     ${PROJECT_SOURCE_DIR}/cmake
-    ${PROJECT_BINARY_DIR}/googletest
+    ${PROJECT_BINARY_DIR}/extern/googletest
     )
 
 enable_testing()
