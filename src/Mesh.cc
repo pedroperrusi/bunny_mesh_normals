@@ -32,15 +32,15 @@ void TriangleMesh::ComputeNormals()
     for (size_t i = 0; i < num_faces; i++)
     {
         // acquire vertex indexes information from faces ith row
-        Index3DType vertices_idx = faces.row(i);
+        bunny_dataIO::Index3DType vertices_idx = faces.row(i);
 
         // get vertices coordinates from vertices
-        Point3DType v0 = vertices.row(vertices_idx(0));
-        Point3DType v1 = vertices.row(vertices_idx(1));
-        Point3DType v2 = vertices.row(vertices_idx(2));
+        bunny_dataIO::Point3DType v0 = vertices.row(vertices_idx(0));
+        bunny_dataIO::Point3DType v1 = vertices.row(vertices_idx(1));
+        bunny_dataIO::Point3DType v2 = vertices.row(vertices_idx(2));
 
         // compute the cross product (unnormalized face normal)
-        Point3DType faceNormal = (v1 - v0).cross(v2 - v1);
+        bunny_dataIO::Point3DType faceNormal = (v1 - v0).cross(v2 - v1);
 
         // add this array to vertex normals matrice at given vertices indexes
         vertices_normals.row(vertices_idx(0)) += faceNormal;

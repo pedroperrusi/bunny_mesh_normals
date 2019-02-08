@@ -11,22 +11,12 @@
 #ifndef _BUNNY_MESH_
 #define _BUNNY_MESH_
 
+#include "data_io.h"
+
 #include <Eigen/Dense>
 
 namespace bunny_mesh
 {
-// Type definition of indexes array as a 3 element integer eigen vector
-using Index3DType = Eigen::Matrix<int, 1, 3, Eigen::RowMajor>;
-
-// Type definition of indexes array as a 3 element integer eigen vector
-using Point3DType = Eigen::Matrix<double, 1, 3, Eigen::RowMajor>;
-
-// Type definition of indexes matrix as a (N, 3) sized integer eigen matrix
-using IndexMatrixType = Eigen::Matrix<int, Eigen::Dynamic, 3, Eigen::RowMajor>;
-
-// Type definition of double floating point matrix a (N, 3) sized double eigen matrix
-using Point3DMatrixType = Eigen::Matrix<double, Eigen::Dynamic, 3, Eigen::RowMajor>;
-
 /**
  * @brief Triangular mesh following the face-vertex representation.
  * 
@@ -51,7 +41,7 @@ class TriangleMesh
      * @param vertices: vector of 3D points in the world space; 
      * @param faces : vector of 3 vertices idexes which composes a triangular face.
      */
-   TriangleMesh(Point3DMatrixType &vertices, IndexMatrixType &faces)
+   TriangleMesh(bunny_dataIO::Point3DMatrixType &vertices, bunny_dataIO::IndexMatrixType &faces)
    {
       this->faces = faces;
       this->vertices = vertices;
@@ -80,33 +70,33 @@ class TriangleMesh
      * 
      * @return faces private object 
      */
-   inline IndexMatrixType getFaces() { return this->faces; }
+   inline bunny_dataIO::IndexMatrixType getFaces() { return this->faces; }
 
    /**
      * @brief Get the Vertices object
      * 
      * @return vertices private object
      */
-   inline Point3DMatrixType getVertices() { return this->vertices; }
+   inline bunny_dataIO::Point3DMatrixType getVertices() { return this->vertices; }
 
    /**
      * @brief Get the faces normalized normals object
      * 
      * @return face_normals private object
      */
-   inline Point3DMatrixType getFaceNormals() { return this->face_normals; }
+   inline bunny_dataIO::Point3DMatrixType getFaceNormals() { return this->face_normals; }
 
    /**
      * @brief Get the vertices normalized normals object
      * 
      * @return vertices_normals private object
      */
-   inline Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
+   inline bunny_dataIO::Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
 
  private:
    // Faces is is a matrix of size (num_faces, 3).
    // Each of its elements denotes a row index to the vertices matrix
-   IndexMatrixType faces;
+   bunny_dataIO::IndexMatrixType faces;
 
    // Number of faces
    size_t num_faces;
@@ -115,13 +105,13 @@ class TriangleMesh
    size_t num_vertices;
 
    // Vertices is a matrix of size (num_vertices, 3) where each row represents a spatial point (x,y,z)
-   Point3DMatrixType vertices;
+   bunny_dataIO::Point3DMatrixType vertices;
 
    // Array of normalized face normals of size (num_faces, 3)
-   Point3DMatrixType face_normals;
+   bunny_dataIO::Point3DMatrixType face_normals;
 
    // Array of normalized vertex normals of size (num_vertices, 3)
-   Point3DMatrixType vertices_normals;
+   bunny_dataIO::Point3DMatrixType vertices_normals;
 };
 } // namespace bunny_mesh
 

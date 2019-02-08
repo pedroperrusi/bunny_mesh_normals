@@ -46,8 +46,8 @@ int main()
 {
     help();
     // Loads Bunny data into Eigen matrices
-    bunny_mesh::IndexMatrixType faces;    // integer type matrix
-    bunny_mesh::Point3DMatrixType vertices; // floating point type matrix
+    bunny_dataIO::IndexMatrixType faces;    // integer type matrix
+    bunny_dataIO::Point3DMatrixType vertices; // floating point type matrix
     try
     {
         // Read Faces Matrix
@@ -73,12 +73,12 @@ int main()
     bunnyMesh.ComputeNormals();
 
     // Get faces normal
-    bunny_mesh::Point3DMatrixType face_normals = bunnyMesh.getFaceNormals();
+    bunny_dataIO::Point3DMatrixType face_normals = bunnyMesh.getFaceNormals();
     // take a look...
     // bunny_dataIO::printArray(face_normals);
 
     // Get vertices normal
-    bunny_mesh::Point3DMatrixType verices_normals = bunnyMesh.getVerticeNormals();
+    bunny_dataIO::Point3DMatrixType verices_normals = bunnyMesh.getVerticeNormals();
     // take a look...
     // bunny_dataIO::printArray(verices_normals);
 
