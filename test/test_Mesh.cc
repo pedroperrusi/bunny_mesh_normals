@@ -81,7 +81,7 @@ TEST(Mesh, SingleFaceNormalized)
     ASSERT_TRUE(expectedVerticeNormals.isApprox(singleFaceMesh.getVerticeNormals()));
 }
 
-TEST(MESH, ObjectOrientation)
+TEST(MESH, ObjectAngle)
 {
     // Simple object:
     bunny_dataIO::Point3DMatrixType vertices(3,3);
@@ -96,6 +96,36 @@ TEST(MESH, ObjectOrientation)
     // Add a orientation:
     bunny_dataIO::Point3DMatrixType orientation(1,3);
     orientation << 0.0, 1.0, 0.0;
+
+    // expected angle
+    double angle = M_PI_2;
+
+    // create Mesh
+    TriangleMesh singleFaceMesh(vertices, faces);
+    // set orientation
+    singleFaceMesh.setOrientation(orientation);
+
+    // eigen default value for a very small number
+    const double precision = Eigen::NumTraits<double>::dummy_precision();
+
+    ASSERT_TRUE(abs(singleFaceMesh.objectAngle() - M_PI_2) < precision);
+}
+
+TEST(MESH, ObjectAngleNormalized)
+{
+    // Simple object:
+    bunny_dataIO::Point3DMatrixType vertices(3,3);
+    vertices << 0.0, 0.0, 0.0, // (x=0,y=0,z=0)
+                1.0, 0.0, 0.0, // (x=1,y=0,z=0)
+                0.0, 1.0, 0.0; // (x=0,y=1,z=0)
+
+    // denines a single face
+    bunny_dataIO::IndexMatrixType faces(1, 3);
+    faces << 0, 1, 2;
+
+    // Add a orientation:
+    bunny_dataIO::Point3DMatrixType orientation(1,3);
+    orientation << 0.0, 10.0, 0.0;
 
     // expected angle
     double angle = M_PI_2;
