@@ -53,9 +53,15 @@ void TriangleMesh::ComputeNormals()
         // assign to face_normal matrix, on the given row
         face_normals.row(i) = faceNormal;
     }
-    // lastly, normalize each row (vertice) of vertices_normals matrix
+    // lastly normalize each row (vertice) of vertices_normals matrix
     vertices_normals.rowwise().normalize();
     return;
+}
+
+double TriangleMesh::objectAngle()
+{
+    double angle = acos(getOrientation().dot(orientationDefault));
+    return angle;
 }
 
 } // namespace bunny_mesh

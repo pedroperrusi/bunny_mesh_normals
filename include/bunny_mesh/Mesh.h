@@ -13,6 +13,7 @@
 
 #include "data_io.h"
 
+#include <Eigen/Geometry> 
 #include <Eigen/Dense>
 
 namespace bunny_mesh
@@ -66,6 +67,15 @@ public:
      * @brief Given the faces and vertices arrays, compute the normalized normal matrix to each face and vertice.
      */
   void ComputeNormals();
+
+   /**
+    * @brief Computes the angle between object orientation and its default orientation.
+    * 
+    * @return double radians angle value.
+    */
+   double objectAngle();
+
+   // bunny_dataIO::Point3DType computeRotationAxis(const bunny_dataIO::Point3DType&);
 
   /**
      * @brief Get the Faces object
