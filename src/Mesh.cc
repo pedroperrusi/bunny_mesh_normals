@@ -17,6 +17,8 @@ namespace bunny_mesh
 /**
     * @brief Apply a rotation transform in the array to convert from relative coordinates to world coordinates.
     * 
+    * I do not yet know why, but a inversion in the rotation axis is needed for the rotation to work as expected.
+    * 
     * @param array : relative position of a point to the object.
     * @return 
     */
