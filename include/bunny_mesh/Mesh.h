@@ -82,7 +82,26 @@ public:
     */
    inline bunny_dataIO::Point3DType RotationAxis() { return (orientationDefault.cross(getOrientation())).normalized(); }
 
-   // bunny_dataIO::Point3DType computeRotationAxis(const bunny_dataIO::Point3DType&);
+   /**
+    * @brief Apply a rotation transform in the array to convert from relative coordinates to world coordinates.
+    * 
+    * @param array : relative position of a point to the object.
+    * @return 
+    */
+   bunny_dataIO::Point3DType matchObjectOrientation(const bunny_dataIO::Point3DType& point)
+   { 
+      // Eigen::Quaterniond rotQuaternion;
+      // rotQuaternion.setFromTwoVectors(orientationDefault, getOrientation());
+      // bunny_dataIO::Point3DMatrixType rotationMatrix = rotQuaternion.toRotationMatrix();
+      // return rotationMatrix * point * rotationMatrix.inverse();
+      bunny_dataIO::Point3DType center;
+      center << 0, 0, 0;
+      Eigen::Affine3d rotation = Eigen::Translation3d(center) 
+                               * Eigen::AngleAxisd(objectAngle(), RotationAxis()) 
+                               * Eigen::Translation3d(-center);
+      bunny_dataIO::Point3DType newPoint = point * rotation.rotation();
+      return newPoint; 
+   };
 
   /**
      * @brief Get the Faces object
