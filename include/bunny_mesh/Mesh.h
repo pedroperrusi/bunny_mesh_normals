@@ -75,6 +75,13 @@ public:
     */
    inline double objectAngle() { return acos(getOrientation().dot(orientationDefault)); }
 
+   /**
+    * @brief Computes the rotation axis between object orientation and its default orientation.
+    * 
+    * @return Normalized Array normal to the rotation.
+    */
+   inline bunny_dataIO::Point3DType RotationAxis() { return (getOrientation().cross(orientationDefault)).normalized(); }
+
    // bunny_dataIO::Point3DType computeRotationAxis(const bunny_dataIO::Point3DType&);
 
   /**
