@@ -48,9 +48,9 @@ public:
     this->num_faces = this->faces.rows();
     this->num_vertices = this->vertices.rows();
     // Allocates dynamic size for face_normals matrix
-    this->face_normals.resize(num_faces, 3);
+    this->face_normals = bunny_dataIO::Point3DMatrixType::Zero(num_faces, 3);
     // Allocates dynamic size for face_normals matrix
-    this->vertices_normals.resize(num_vertices, 3);
+    this->vertices_normals = bunny_dataIO::Point3DMatrixType::Zero(num_vertices, 3);
     // Sets default orientation
     setOrientation(orientationDefault);
   };
@@ -101,7 +101,7 @@ public:
   /**
      * @brief Set the Vertices object 
      */
-  inline void setOrientation(const bunny_dataIO::Point3DType &orientation) { this->orientation = orientation; }
+  inline void setOrientation(const bunny_dataIO::Point3DType &orientation) { this->orientation = orientation.normalized(); }
 
   /**
      * @brief Get the faces normalized normals object
@@ -118,10 +118,6 @@ public:
   inline bunny_dataIO::Point3DMatrixType getVerticeNormals() { return this->vertices_normals; }
 
 private:
-  // Faces is is a matrix of size (num_faces, 3).
-  // Each of its elements denotes a row index to the vertices matrix
-  bunny_dataIO::IndexMatrixType faces;
-
   // Number of faces
   size_t num_faces;
 
@@ -131,6 +127,10 @@ private:
   // orientation is a 3D array which gives the object orientation. Default value is (x,y,z) = (0,0,1)
   bunny_dataIO::Point3DType orientation;
   const bunny_dataIO::Point3DType orientationDefault = bunny_dataIO::Point3DType(0, 0, 1);
+
+  // Faces is is a matrix of size (num_faces, 3).
+  // Each of its elements denotes a row index to the vertices matrix
+  bunny_dataIO::IndexMatrixType faces;
 
   // Vertices is a matrix of size (num_vertices, 3) where each row represents a spatial point (x,y,z)
   bunny_dataIO::Point3DMatrixType vertices;
