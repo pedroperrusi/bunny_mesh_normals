@@ -73,3 +73,59 @@ Information sources that were quite useful to understand and perform the triagul
 * https://en.wikipedia.org/wiki/Polygon_mesh
 * https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-shading/shading-normals
 * http://www.iquilezles.org/www/articles/normals/normals.htm
+
+## Project Structure
+
+The project structure is based on [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/).
+Some adjustments would also be interesting, such as downloading the external dependency CNPY from a CMake file.
+
+```
+.
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── app
+│   ├── CMakeLists.txt
+│   └── main.cc
+├── cmake
+│   ├── googletest-download.cmake
+│   └── googletest.cmake
+├── data
+│   ├── bunny_faces.npy
+│   ├── bunny_vertices.npy
+│   ├── face_normals.npy
+│   └── vertex_normals.npy
+├── extern
+│   └── cnpy
+│       ├── CMakeLists.txt
+│       ├── LICENSE
+│       ├── README.md
+│       ├── cnpy.cpp
+│       ├── cnpy.h
+│       ├── example1.cpp
+│       ├── mat2npz
+│       ├── npy2mat
+│       └── npz2mat
+├── include
+│   └── bunny_mesh
+│       ├── Mesh.h
+│       └── data_io.h
+├── python
+│   └── visualize_mesh.py
+├── scripts
+│   ├── build.sh
+│   ├── clean.sh
+│   ├── cmake.sh
+│   ├── run_bunny_mesh_normals.sh
+│   └── run_tests.sh
+├── src
+│   ├── CMakeLists.txt
+│   └── Mesh.cc
+└── test
+    ├── CMakeLists.txt
+    ├── data
+    │   ├── sequential_double.npy
+    │   └── sequential_int.npy
+    ├── test_IO.cc
+    └── test_Mesh.cc
+```
