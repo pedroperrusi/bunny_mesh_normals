@@ -25,8 +25,9 @@ namespace bunny_mesh
  * So, an object may be defined by 
  *      - vertices: vector of 3D points in the world space;
  *      - faces: vector of 3 vertices idexes which composes a triangular face.
+ *      - orientation: vector of am arbitrary orientation of the object.
  * 
- * Given those two informations, its possible to compute the vertices normalized normal and faces normalized normal. Both of these informations are essential to perform shading effects on computer graphics.
+ * Given those informations, its possible to compute the vertices normalized normal and faces normalized normal. Both of these informations are essential to perform shading effects on computer graphics.
  * 
  * References:
  *  - https://en.wikipedia.org/wiki/Polygon_mesh
