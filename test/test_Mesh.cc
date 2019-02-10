@@ -226,5 +226,80 @@ TEST(MESH, matchObjectOrientation)
     bunny_dataIO::Point3DType expected;
     expected << 0, 0, -1;
 
-    ASSERT_TRUE(vertice.isApprox(singleFaceMesh.matchObjectOrientation(expected)));
+    ASSERT_TRUE(expected.isApprox(singleFaceMesh.matchObjectOrientation(vertice)));
 }
+
+TEST(Mesh, verticesIntoWorld)
+{
+    // defines simple vertices matrix
+    bunny_dataIO::Point3DMatrixType vertices(3,3);
+    vertices << 0.0, 0.0, 0.0, // (x=0,y=0,z=0)
+                1.0, 0.0, 0.0, // (x=1,y=0,z=0)
+                0.0, 1.0, 0.0; // (x=0,y=1,z=0)
+
+    // denines a single face
+    bunny_dataIO::IndexMatrixType faces(1, 3);
+    faces << 0, 1, 2;
+
+    // Create a triangle mesh
+    TriangleMesh singleFaceMesh(vertices, faces);
+
+    // define a non-standard orientation to the object
+    bunny_dataIO::Point3DType orientation;
+    orientation << 1.0, 0.0, 0.0;
+    singleFaceMesh.setOrientation(orientation);
+
+    // define expected output:
+    bunny_dataIO::Point3DMatrixType expectedVertices(3,3);
+    expectedVertices << 0.0, 0.0, 0.0,
+                        0.0, 0.0, -1.0,
+                        0.0, 1.0, 0.0;
+
+    bunny_dataIO::printArray(singleFaceMesh.getVerticesIntoWorld());
+
+    ASSERT_TRUE(expectedVertices.isApprox(singleFaceMesh.getVerticesIntoWorld()));
+}
+
+// TEST(Mesh, NonDefaultOrientationNormals)
+// {
+//     // defines simple vertices matrix
+//     bunny_dataIO::Point3DMatrixType vertices(3,3);
+//     vertices << 0.0, 0.0, 0.0, // (x=0,y=0,z=0)
+//                 1.0, 0.0, 0.0, // (x=1,y=0,z=0)
+//                 0.0, 1.0, 0.0; // (x=0,y=1,z=0)
+
+//     // denines a single face
+//     bunny_dataIO::IndexMatrixType faces(1, 3);
+//     faces << 0, 1, 2;
+
+//     // Create a triangle mesh
+//     TriangleMesh singleFaceMesh(vertices, faces);
+
+//     // define a non-standard orientation to the object
+//     bunny_dataIO::Point3DType orientation;
+//     orientation << 0, 1, 0;
+//     singleFaceMesh.setOrientation(orientation);
+//     // compute normals
+//     singleFaceMesh.ComputeNormals();
+
+//     // define expected output:
+//     bunny_dataIO::Point3DMatrixType expectedFaceNormals(1,3);
+//     expectedFaceNormals << 0.0, 1.0, 0.0;
+
+//     bunny_dataIO::Point3DMatrixType expectedVerticeNormals(3,3);
+//     expectedVerticeNormals << 1.0, 0.0, 0.0,
+//                               1.0, 0.0, 0.0,
+//                               1.0, 0.0, 0.0;
+
+//     bunny_dataIO::printArray(singleFaceMesh.getFaceNormals());
+
+//     bunny_dataIO::printArray(singleFaceMesh.getVerticeNormals());
+
+//     // test them...
+//     // size assertions:
+//     ASSERT_EQ(faces.rows(), singleFaceMesh.getFaceNormals().rows());
+//     ASSERT_EQ(vertices.rows(), singleFaceMesh.getVerticeNormals().rows());
+//     // norm assertions:
+//     ASSERT_TRUE(expectedFaceNormals.isApprox(singleFaceMesh.getFaceNormals()));
+//     ASSERT_TRUE(expectedVerticeNormals.isApprox(singleFaceMesh.getVerticeNormals()));
+// }

@@ -15,6 +15,45 @@
 namespace bunny_mesh
 {
 /**
+    * @brief Apply a rotation transform in the array to convert from relative coordinates to world coordinates.
+    * 
+    * @param array : relative position of a point to the object.
+    * @return 
+    */
+bunny_dataIO::Point3DType TriangleMesh::matchObjectOrientation(const bunny_dataIO::Point3DType &point)
+{
+    Eigen::Affine3d affineRotation(Eigen::AngleAxisd(objectAngle(), -RotationAxis()));
+    bunny_dataIO::Point3DType newPoint = point * affineRotation.rotation();
+    return newPoint;
+};
+
+/**
+ * @brief Returns the object vertices for an arbitrary object orientation.
+ * 
+ * @return bunny_dataIO::Point3DMatrixType 
+ */
+bunny_dataIO::Point3DMatrixType TriangleMesh::getVerticesIntoWorld()
+{
+    // If the default orientation is set, verticesWorld is just a copy of vertices
+    if (orientation == orientationDefault)
+    {
+        return vertices;
+    }
+    else
+    {
+        bunny_dataIO::Point3DMatrixType verticesWorld;
+        verticesWorld = bunny_dataIO::Point3DMatrixType::Zero(vertices.rows(), vertices.cols());
+        // we must transform each relative vertex into a world equivalent
+        for (size_t i = 0; i < num_vertices; i++)
+        {
+            bunny_dataIO::Point3DType vertice = vertices.row(i);
+            verticesWorld.row(i) = matchObjectOrientation(vertice);
+        }
+        return verticesWorld;
+    }
+}
+
+/**
      * @brief Given the faces and vertices arrays, compute the normalized normal matrix to each face and vertex.
      * 
      * A face normal for a triangle mesh can be calculated as the cross product between two of its sides.
@@ -28,6 +67,7 @@ namespace bunny_mesh
      */
 void TriangleMesh::ComputeNormals()
 {
+    bunny_dataIO::Point3DMatrixType verticesWorld = getVerticesIntoWorld();
     // iterates through each row of the faces matrix
     for (size_t i = 0; i < num_faces; i++)
     {
@@ -35,9 +75,9 @@ void TriangleMesh::ComputeNormals()
         bunny_dataIO::Index3DType vertices_idx = faces.row(i);
 
         // get vertices coordinates from vertices
-        bunny_dataIO::Point3DType v0 = vertices.row(vertices_idx(0));
-        bunny_dataIO::Point3DType v1 = vertices.row(vertices_idx(1));
-        bunny_dataIO::Point3DType v2 = vertices.row(vertices_idx(2));
+        bunny_dataIO::Point3DType v0 = verticesWorld.row(vertices_idx(0));
+        bunny_dataIO::Point3DType v1 = verticesWorld.row(vertices_idx(1));
+        bunny_dataIO::Point3DType v2 = verticesWorld.row(vertices_idx(2));
 
         // compute the cross product (unnormalized face normal)
         bunny_dataIO::Point3DType faceNormal = (v1 - v0).cross(v2 - v1);

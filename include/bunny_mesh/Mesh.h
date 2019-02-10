@@ -73,7 +73,10 @@ public:
     * 
     * @return double radians angle value.
     */
-   inline double objectAngle() { return acos(getOrientation().dot(orientationDefault)); }
+   inline double objectAngle() 
+   { 
+      return acos(orientationDefault.dot(getOrientation())); 
+   }
 
    /**
     * @brief Computes the rotation axis between object orientation and its default orientation.
@@ -88,12 +91,14 @@ public:
     * @param array : relative position of a point to the object.
     * @return 
     */
-   bunny_dataIO::Point3DType matchObjectOrientation(const bunny_dataIO::Point3DType& point)
-   { 
-      Eigen::Affine3d affineRotation(Eigen::AngleAxisd(objectAngle(), RotationAxis()));
-      bunny_dataIO::Point3DType newPoint = point * affineRotation.rotation();
-      return newPoint; 
-   };
+   bunny_dataIO::Point3DType matchObjectOrientation(const bunny_dataIO::Point3DType&);
+
+   /**
+    * @brief Returns the object vertices for an arbitrary object orientation.
+    * 
+    * @return bunny_dataIO::Point3DMatrixType 
+    */
+   bunny_dataIO::Point3DMatrixType getVerticesIntoWorld();
 
   /**
      * @brief Get the Faces object
