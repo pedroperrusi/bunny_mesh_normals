@@ -3,7 +3,7 @@
  * @author Pedro Henrique S. Perrusi (pedro.perrusi@gmail.com)
  * @brief Input and output operations used in Bunny Mesh Normals project
  * @version 1.0
- * @date 2019-02-07
+ * @date 2019-02-10
  * 
  * @copyright Copyright (c) 2019 Pedro Henrique S. Perrusi
  * 
