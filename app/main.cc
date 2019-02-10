@@ -28,7 +28,8 @@ const std::string normVerticesFilePath = "data/vertex_normals.npy";
  */
 void help()
 {
-    std::cout 
+    std::cout
+    << "\n" 
     << "This program computes the normalized face normals and normalized vertices normals from a given model.\n"
     << "The application inputs are:\n"
     << "\t - '" << facesFilePath      << "'\n"
@@ -65,9 +66,13 @@ int main()
     // bunny_dataIO::printArray(faces);
     // bunny_dataIO::printArray(vertices);
 
-
     // Create a bunny mesh object based on vertices and faces information
     bunny_mesh::TriangleMesh bunnyMesh(vertices, faces);
+
+    // its possible to set an arbitrary orientation to bunnyMesh.
+    // the default orientation is z = (0,0,1)
+    // example:
+    // bunnyMesh.setOrientation(bunny_dataIO::Point3DType(0,1,0));
 
     // Compute normalized face normals and normalized vertices normals
     bunnyMesh.ComputeNormals();
