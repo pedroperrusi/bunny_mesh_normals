@@ -90,12 +90,6 @@ public:
     */
    bunny_dataIO::Point3DType matchObjectOrientation(const bunny_dataIO::Point3DType& point)
    { 
-      // Eigen::Quaterniond rotQuaternion;
-      // rotQuaternion.setFromTwoVectors(orientationDefault, getOrientation());
-      // bunny_dataIO::Point3DMatrixType rotationMatrix = rotQuaternion.toRotationMatrix();
-      // return rotationMatrix * point * rotationMatrix.inverse();
-      bunny_dataIO::Point3DType center;
-      center << 0, 0, 0;
       Eigen::Affine3d affineRotation(Eigen::AngleAxisd(objectAngle(), RotationAxis()));
       bunny_dataIO::Point3DType newPoint = point * affineRotation.rotation();
       return newPoint; 
