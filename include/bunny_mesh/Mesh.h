@@ -96,10 +96,8 @@ public:
       // return rotationMatrix * point * rotationMatrix.inverse();
       bunny_dataIO::Point3DType center;
       center << 0, 0, 0;
-      Eigen::Affine3d rotation = Eigen::Translation3d(center) 
-                               * Eigen::AngleAxisd(objectAngle(), RotationAxis()) 
-                               * Eigen::Translation3d(-center);
-      bunny_dataIO::Point3DType newPoint = point * rotation.rotation();
+      Eigen::Affine3d affineRotation(Eigen::AngleAxisd(objectAngle(), RotationAxis()));
+      bunny_dataIO::Point3DType newPoint = point * affineRotation.rotation();
       return newPoint; 
    };
 
