@@ -73,7 +73,7 @@ public:
     * 
     * @return double radians angle value.
     */
-   double objectAngle();
+   inline double objectAngle() { return acos(getOrientation().dot(orientationDefault)); }
 
    // bunny_dataIO::Point3DType computeRotationAxis(const bunny_dataIO::Point3DType&);
 

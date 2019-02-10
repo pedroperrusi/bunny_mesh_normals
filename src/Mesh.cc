@@ -58,10 +58,4 @@ void TriangleMesh::ComputeNormals()
     return;
 }
 
-double TriangleMesh::objectAngle()
-{
-    double angle = acos(getOrientation().dot(orientationDefault));
-    return angle;
-}
-
 } // namespace bunny_mesh
