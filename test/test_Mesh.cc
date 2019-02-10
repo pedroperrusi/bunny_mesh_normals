@@ -94,7 +94,7 @@ TEST(MESH, ObjectAngle)
     faces << 0, 1, 2;
 
     // Add a orientation:
-    bunny_dataIO::Point3DMatrixType orientation(1,3);
+    bunny_dataIO::Point3DType orientation;
     orientation << 0.0, 1.0, 0.0;
 
     // expected angle
@@ -124,7 +124,7 @@ TEST(MESH, ObjectAngleNormalized)
     faces << 0, 1, 2;
 
     // Add a orientation:
-    bunny_dataIO::Point3DMatrixType orientation(1,3);
+    bunny_dataIO::Point3DType orientation;
     orientation << 0.0, 10.0, 0.0;
 
     // expected angle
@@ -154,7 +154,7 @@ TEST(MESH, RotationAxis)
     faces << 0, 1, 2;
 
     // Add a orientation:
-    bunny_dataIO::Point3DMatrixType orientation(1,3);
+    bunny_dataIO::Point3DType orientation;
     orientation << 0.0, 1.0, 0.0;
 
     // create Mesh
@@ -163,7 +163,7 @@ TEST(MESH, RotationAxis)
     singleFaceMesh.setOrientation(orientation);
 
     // expected result
-    bunny_dataIO::Point3DType expected(1,3);
+    bunny_dataIO::Point3DType expected;
     expected << 1, 0, 0;
 
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
@@ -182,7 +182,7 @@ TEST(MESH, RotationAxisNormalized)
     faces << 0, 1, 2;
 
     // Add a orientation:
-    bunny_dataIO::Point3DMatrixType orientation(1,3);
+    bunny_dataIO::Point3DType orientation;
     orientation << 0.0, 10.0, 0.0;
 
     // create Mesh
@@ -191,7 +191,7 @@ TEST(MESH, RotationAxisNormalized)
     singleFaceMesh.setOrientation(orientation);
 
     // expected result
-    bunny_dataIO::Point3DType expected(1,3);
+    bunny_dataIO::Point3DType expected;
     expected << 1, 0, 0;
 
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
