@@ -141,7 +141,7 @@ TEST(MESH, ObjectAngleNormalized)
     ASSERT_TRUE(abs(singleFaceMesh.objectAngle() - M_PI_2) < precision);
 }
 
-TEST(MESH, RotationAxis)
+TEST(MESH, RotationAxis_orientationY)
 {
     // Simple object:
     bunny_dataIO::Point3DMatrixType vertices(3,3);
@@ -165,6 +165,34 @@ TEST(MESH, RotationAxis)
     // expected result
     bunny_dataIO::Point3DType expected;
     expected << -1, 0, 0;
+
+    ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
+}
+
+TEST(MESH, RotationAxis_orientationX)
+{
+    // Simple object:
+    bunny_dataIO::Point3DMatrixType vertices(3,3);
+    vertices << 0.0, 0.0, 0.0, // (x=0,y=0,z=0)
+                1.0, 0.0, 0.0, // (x=1,y=0,z=0)
+                0.0, 1.0, 0.0; // (x=0,y=1,z=0)
+
+    // denines a single face
+    bunny_dataIO::IndexMatrixType faces(1, 3);
+    faces << 0, 1, 2;
+
+    // Add a orientation:
+    bunny_dataIO::Point3DType orientation;
+    orientation << 1.0, 0.0, 0.0;
+
+    // create Mesh
+    TriangleMesh singleFaceMesh(vertices, faces);
+    // set orientation
+    singleFaceMesh.setOrientation(orientation);
+
+    // expected result
+    bunny_dataIO::Point3DType expected;
+    expected << 0, 1, 0;
 
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
 }
@@ -197,7 +225,7 @@ TEST(MESH, RotationAxisNormalized)
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
 }
 
-TEST(MESH, matchObjectOrientation)
+TEST(MESH, matchObjectOrientationX)
 {
     // Simple object:
     bunny_dataIO::Point3DMatrixType vertices(3,3);
@@ -219,14 +247,58 @@ TEST(MESH, matchObjectOrientation)
     singleFaceMesh.setOrientation(orientation);
 
     // array to transform
-    bunny_dataIO::Point3DType vertice;
-    vertice << 1, 0, 0;
+    bunny_dataIO::Point3DType verticeX, verticeY, verticeZ;
+    verticeX << 1, 0, 0;
+    verticeY << 0, 1, 0;
+    verticeZ << 0, 0, 1;
 
     // expected result
-    bunny_dataIO::Point3DType expected;
-    expected << 0, 0, -1;
+    bunny_dataIO::Point3DType expectedX, expectedY, expectedZ;
+    expectedX << 0, 0, -1;
+    expectedY << 0, 1, 0;
+    expectedZ << 1, 0, 0;
 
-    ASSERT_TRUE(expected.isApprox(singleFaceMesh.matchObjectOrientation(vertice)));
+    ASSERT_TRUE(expectedX.isApprox(singleFaceMesh.matchObjectOrientation(verticeX)));
+    ASSERT_TRUE(expectedY.isApprox(singleFaceMesh.matchObjectOrientation(verticeY)));
+    ASSERT_TRUE(expectedZ.isApprox(singleFaceMesh.matchObjectOrientation(verticeZ)));
+}
+
+TEST(MESH, matchObjectOrientationY)
+{
+    // Simple object:
+    bunny_dataIO::Point3DMatrixType vertices(3,3);
+    vertices << 0.0, 0.0, 0.0, // (x=0,y=0,z=0)
+                1.0, 0.0, 0.0, // (x=1,y=0,z=0)
+                0.0, 1.0, 0.0; // (x=0,y=1,z=0)
+
+    // denines a single face
+    bunny_dataIO::IndexMatrixType faces(1, 3);
+    faces << 0, 1, 2;
+
+    // Add a orientation:
+    bunny_dataIO::Point3DType orientation;
+    orientation << 0.0, 1.0, 0.0;
+
+    // create Mesh
+    TriangleMesh singleFaceMesh(vertices, faces);
+    // set orientation
+    singleFaceMesh.setOrientation(orientation);
+
+    // array to transform
+    bunny_dataIO::Point3DType verticeX, verticeY, verticeZ;
+    verticeX << 1, 0, 0;
+    verticeY << 0, 1, 0;
+    verticeZ << 0, 0, 1;
+
+    // expected result
+    bunny_dataIO::Point3DType expectedX, expectedY, expectedZ;
+    expectedX << 1, 0, 0;
+    expectedY << 0, 0, -1;
+    expectedZ << 0, 1, 0;
+
+    ASSERT_TRUE(expectedX.isApprox(singleFaceMesh.matchObjectOrientation(verticeX)));
+    ASSERT_TRUE(expectedY.isApprox(singleFaceMesh.matchObjectOrientation(verticeY)));
+    ASSERT_TRUE(expectedZ.isApprox(singleFaceMesh.matchObjectOrientation(verticeZ)));
 }
 
 TEST(Mesh, verticesIntoWorld)
