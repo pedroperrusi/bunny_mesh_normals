@@ -164,7 +164,7 @@ TEST(MESH, RotationAxis)
 
     // expected result
     bunny_dataIO::Point3DType expected;
-    expected << 1, 0, 0;
+    expected << -1, 0, 0;
 
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
 }
@@ -192,7 +192,7 @@ TEST(MESH, RotationAxisNormalized)
 
     // expected result
     bunny_dataIO::Point3DType expected;
-    expected << 1, 0, 0;
+    expected << -1, 0, 0;
 
     ASSERT_TRUE(expected.isApprox(singleFaceMesh.RotationAxis()));
 }

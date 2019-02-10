@@ -80,7 +80,7 @@ public:
     * 
     * @return Normalized Array normal to the rotation.
     */
-   inline bunny_dataIO::Point3DType RotationAxis() { return (getOrientation().cross(orientationDefault)).normalized(); }
+   inline bunny_dataIO::Point3DType RotationAxis() { return (orientationDefault.cross(getOrientation())).normalized(); }
 
    // bunny_dataIO::Point3DType computeRotationAxis(const bunny_dataIO::Point3DType&);
 
